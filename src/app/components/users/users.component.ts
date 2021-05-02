@@ -29,7 +29,6 @@ export class UsersComponent implements OnInit {
   users:User[] = []
 
   addNewUser(user:User){
-    console.log(user);
     this.myServices.addUser(user).subscribe({
       next: (data) => {
         // getting all users back after add new one to update the users state.
@@ -44,7 +43,6 @@ export class UsersComponent implements OnInit {
   editUser(id:number){
   }
   deleteUser(id:number){
-    console.log("deleted" , id);
     this.myServices.deleteUser(id).subscribe({
       next: (data) =>{
         // getting all users back after add new one to update the users state.
