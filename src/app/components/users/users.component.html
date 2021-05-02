@@ -26,9 +26,12 @@
           <td>{{ user.email }}</td>
           <td>{{ user.city }}</td>
           <td>
-            <button (click)="editUser(user.id)" class="btn btn-warning btn-sm">
-              Edit
-            </button>
+            <app-add-user
+              buttonTitle="Edit"
+              [user]="user"
+              (editUser)="editUser($event)"
+              buttonClass="btn btn-warning btn-sm"
+            ></app-add-user>
             &nbsp;
             <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">
               Delete

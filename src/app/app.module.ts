@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AddUserComponent } from './components/add-user/add-user.component';
+import { AddUserComponent } from './components/add-user/add-usercomponent';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UsersComponent } from './components/users/users.component';
@@ -16,6 +16,7 @@ const routes:Routes = [
   {path: "users/:id", component: ProfileComponent },
   {path: "**", component: NotFoundComponent },
  ];
+
 @NgModule({
   declarations: [
     AppComponent,

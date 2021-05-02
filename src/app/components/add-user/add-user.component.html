@@ -1,17 +1,17 @@
 <!-- Button trigger modal -->
 <button
   type="button"
-  class="btn btn-primary mt-3"
+  [class]="buttonClass"
   data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
+  [attr.data-bs-target]="'#a' + user.id"
 >
-  Add User
+  {{ buttonTitle }}
 </button>
 
 <!-- Modal -->
 <div
   class="modal fade"
-  id="exampleModal"
+  [attr.id]="'a' + user.id"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -19,7 +19,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ buttonTitle }}</h5>
         <button
           type="button"
           class="btn-close"
@@ -78,20 +78,26 @@
               City should be more than 3 characters and less than 20 characters
             </p>
           </div>
+          <input type="hidden" formControlName="id" />
           <!--User City  End -->
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button
+          type="button"
+          [attr.id]="'c' + user.id"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
           Close
         </button>
         <button
-          (click)="addUser()"
+          (click)="emmitUser()"
           [disabled]="userForm.invalid"
           type="button"
           class="btn btn-success"
         >
-          Add
+          {{ buttonTitle }}
         </button>
       </div>
     </div>

@@ -27,7 +27,6 @@ export class UsersComponent implements OnInit {
     console.log("Users Component Destroied");
   }
   users:User[] = []
-
   addNewUser(user:User){
     this.myServices.addUser(user).subscribe({
       next: (data) => {
@@ -40,7 +39,12 @@ export class UsersComponent implements OnInit {
     });
 
   }
-  editUser(id:number){
+  editUser(user:User){
+    this.myServices.editUser(user).subscribe({
+      next: (data) => {
+        this.users = data as User[];
+      }
+    })
   }
   deleteUser(id:number){
     this.myServices.deleteUser(id).subscribe({
