@@ -1,1 +1,49 @@
-<app-add-user></app-add-user>
+<div class="row">
+  <div class="col-12">
+    <app-add-user></app-add-user>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <table
+      *ngIf="users.length > 0; else noUsers"
+      class="table table-striped mt-3"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nmae</th>
+          <th>Email</th>
+          <th>City</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.city }}</td>
+          <td>
+            <button (click)="editUser(user.id)" class="btn btn-warning btn-sm">
+              Edit
+            </button>
+            &nbsp;
+            <button (click)="deleteUser(user.id)" class="btn btn-danger btn-sm">
+              Delete
+            </button>
+            &nbsp;
+            <a href="#" class="btn btn-info btn-sm"> Details </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template class="" #noUsers>
+      <div class="d-flex justify-content-center text-center">
+        <p class="alert alert-info mt-3 w-25">No Users Please add one</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
