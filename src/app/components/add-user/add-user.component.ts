@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-add-user',
@@ -19,7 +20,9 @@ export class AddUserComponent implements OnInit {
     city: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
   })
 
+  @Output() addNewUser:EventEmitter<User> = new EventEmitter();
   addUser(){
-    console.log(this.userForm.value);
+    this.addNewUser.emit(this.userForm.value);
+    this.userForm.reset();
   }
 }
