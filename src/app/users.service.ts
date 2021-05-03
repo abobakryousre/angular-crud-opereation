@@ -12,7 +12,7 @@ export class UsersService {
   constructor(private myClient:HttpClient) { }
   baseURL:string = "http://localhost:5000/users";
   getUsers(){
-    return this.myClient.get(this.baseURL);
+    return this.myClient.get(`${this.baseURL}?id=10`);
   }
   getUserById(id:number){
     return this.myClient.get(`${this.baseURL}/${id}`);
