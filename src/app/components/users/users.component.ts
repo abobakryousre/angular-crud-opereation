@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/users.service';
@@ -9,29 +9,30 @@ import { UsersService } from 'src/app/users.service';
   styles: [
   ]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(private router:Router, private myServices:UsersService) { }
   subscribes:any[] = [];
   ngOnInit(): void {
     this.getAllUsers();
-
   }
 
-  onDestroy(){
-    this.subscribes.forEach(sub => sub.remove());
-    console.log("Users Component Destroied");
+  ngOnDestroy(){
+    this.subscribes.forEach(sub => sub.unsubscribe() );
   }
   search(event:any){
     if(!event.target.value) return this.getAllUsers()
-    this.myServices.searchForUserByName(event.target.value).subscribe({
+    this.subscribes.push(this.myServices.searchForUserByName(event.target.value).subscribe({
       next: (data) => {
         this.users =  data as User[];
       }
-    })
+    }));
   }
+
   users:User[] = []
+
   getAllUsers(){
+    
     this.subscribes.push(this.myServices.getUsers().subscribe({
       next: (data) =>{
         this.users = data as User[];
@@ -66,6 +67,6 @@ export class UsersComponent implements OnInit {
     }));
   }
   goToUser(id:number){
-    this.subscribes.push(this.router.navigate([`/users/${id}`]))
+    this.router.navigate([`/users/${id}`]);
   }
 }
