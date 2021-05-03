@@ -12,14 +12,14 @@ import { UsersService } from 'src/app/users.service';
 export class UsersComponent implements OnInit {
 
   constructor(private router:Router, private myServices:UsersService) { }
-  subscribe:any;
+  subscribes:any[] = [];
   ngOnInit(): void {
     this.getAllUsers();
 
   }
 
   onDestroy(){
-    this.subscribe.remove();
+    this.subscribes.forEach(sub => sub.remove());
     console.log("Users Component Destroied");
   }
   search(event:any){
@@ -32,14 +32,14 @@ export class UsersComponent implements OnInit {
   }
   users:User[] = []
   getAllUsers(){
-    this.subscribe = this.myServices.getUsers().subscribe({
+    this.subscribes.push(this.myServices.getUsers().subscribe({
       next: (data) =>{
         this.users = data as User[];
       }
-    });
+    }));
   }
   addNewUser(user:User){
-    this.myServices.addUser(user).subscribe({
+    this.subscribes.push(this.myServices.addUser(user).subscribe({
       next: (data) => {
         // getting all users back after add new one to update the users state.
         this.users = data as User[]; 
@@ -47,25 +47,25 @@ export class UsersComponent implements OnInit {
       error: (err) => {
         console.log(err);
       }
-    });
+    }));
 
   }
   editUser(user:User){
-    this.myServices.editUser(user).subscribe({
+    this.subscribes.push(this.myServices.editUser(user).subscribe({
       next: (data) => {
         this.users = data as User[];
       }
-    })
+    }));
   }
   deleteUser(id:number){
-    this.myServices.deleteUser(id).subscribe({
+    this.subscribes.push(this.myServices.deleteUser(id).subscribe({
       next: (data) =>{
         // getting all users back after add new one to update the users state.
         this.users = data as User[]; 
       }
-    })
+    }));
   }
   goToUser(id:number){
-    this.router.navigate([`/users/${id}`])
+    this.subscribes.push(this.router.navigate([`/users/${id}`]))
   }
 }
