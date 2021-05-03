@@ -14,11 +14,7 @@ export class UsersComponent implements OnInit {
   constructor(private router:Router, private myServices:UsersService) { }
   subscribe:any;
   ngOnInit(): void {
-    this.subscribe = this.myServices.getUsers().subscribe({
-      next: (data) =>{
-        this.users = data as User[];
-      }
-    });
+    this.getAllUsers();
 
   }
 
@@ -26,7 +22,22 @@ export class UsersComponent implements OnInit {
     this.subscribe.remove();
     console.log("Users Component Destroied");
   }
+  search(event:any){
+    if(!event.target.value) return this.getAllUsers()
+    this.myServices.searchForUserByName(event.target.value).subscribe({
+      next: (data) => {
+        this.users =  data as User[];
+      }
+    })
+  }
   users:User[] = []
+  getAllUsers(){
+    this.subscribe = this.myServices.getUsers().subscribe({
+      next: (data) =>{
+        this.users = data as User[];
+      }
+    });
+  }
   addNewUser(user:User){
     this.myServices.addUser(user).subscribe({
       next: (data) => {

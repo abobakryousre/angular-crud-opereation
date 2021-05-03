@@ -20,10 +20,7 @@ export class AddUserComponent implements OnInit {
       id: new FormControl(this.user.id),
     })
   }
-  OnChanges(){
-    console.log("ngOnChnge",this.user);
-    
-  }
+
   @Input() user:User = {id:0, name:"", email:"", city: ""};
   @Input() buttonTitle:string = "Add New User";
   @Input() buttonClass:string = "btn btn-primary mt-3";
@@ -33,7 +30,6 @@ export class AddUserComponent implements OnInit {
   @Output() addNewUser:EventEmitter<User> = new EventEmitter();
   @Output() editUser:EventEmitter<User> = new EventEmitter();
   emmitUser(){
-    console.log(this.user);
     if(this.buttonTitle === "Add New User"){
       this.addNewUser.emit(this.userForm.value);
       this.userForm.reset();

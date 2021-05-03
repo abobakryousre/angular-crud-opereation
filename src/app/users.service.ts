@@ -26,4 +26,7 @@ export class UsersService {
   editUser(user:User){
     return this.myClient.patch(this.baseURL, user)
   }
+  searchForUserByName(name:string){
+    return this.myClient.get(`${this.baseURL}/search/${name}`)
+  }
 }
