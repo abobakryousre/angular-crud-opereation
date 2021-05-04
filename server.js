@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const path = require("path");
 app.use(express.json());
 app.use(cors());
 
@@ -8,6 +9,12 @@ app.use(express.static(__dirname + "/dist/final-task"));
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/dist/final-task/index.html"));
 });
+
+app.listen(process.env.PORT || 8080, (err) => {
+  if (!err) return console.log("server runging on port 8080");
+  console.log(err);
+});
+
 let arr = [];
 app.get("/users", (req, res) => {
   res.json(arr);
@@ -47,10 +54,6 @@ app.patch("/users", (req, res) => {
   const index = arr.indexOf(userRefernce);
   arr[index] = updatedUser;
   res.status(200).json(arr);
-});
-
-app.listen(process.env.PORT || 8080, (err) => {
-  if (!err) console.log("server runging on port 8080");
 });
 
 const getUserId = () => {
