@@ -49,8 +49,8 @@ app.patch("/users", (req, res) => {
   res.status(200).json(arr);
 });
 
-app.listen(5000, (err) => {
-  if (!err) console.log("server runging on port 5000");
+app.listen(process.env.PORT || 8080, (err) => {
+  if (!err) console.log("server runging on port 8080");
 });
 
 const getUserId = () => {

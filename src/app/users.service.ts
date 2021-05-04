@@ -10,9 +10,9 @@ import { User } from 'src/app/interfaces/user';
 export class UsersService {
 
   constructor(private myClient:HttpClient) { }
-  baseURL:string = "http://localhost:5000/users";
+  baseURL:string = "http://localhost:8080/users";
   getUsers(){
-    return this.myClient.get(`${this.baseURL}?id=10`);
+    return this.myClient.get(`${this.baseURL}`);
   }
   getUserById(id:number){
     return this.myClient.get(`${this.baseURL}/${id}`);
