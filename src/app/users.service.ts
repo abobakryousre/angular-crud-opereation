@@ -10,7 +10,7 @@ import { User } from 'src/app/interfaces/user';
 export class UsersService {
 
   constructor(private myClient:HttpClient) { }
-  baseURL:string = "http://localhost:8080/users";
+  baseURL:string = "https://crud-operations-angular.herokuapp.com/users";
   getUsers(){
     return this.myClient.get(`${this.baseURL}`);
   }
