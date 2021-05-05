@@ -22,7 +22,7 @@ app.get("/users", (req, res) => {
 
 app.get("/users/search/:name", (req, res) => {
   const name = req.params.name;
-  const regx = new RegExp(name);
+  const regx = new RegExp(name.toLowerCase());
   const users = arr.filter((user) => user.name.toLowerCase().match(regx));
   if (users.length > 0) return res.json(users);
   res.json(arr);
